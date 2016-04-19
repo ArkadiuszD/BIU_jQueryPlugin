@@ -1,5 +1,9 @@
 $(document).ready(function (){
 
-	$("#name").validateText();
+	$("#first").validateText();
+	
+	$("#last").validateText();
+	
+	$("#email").validateEmail();
 	
 });
