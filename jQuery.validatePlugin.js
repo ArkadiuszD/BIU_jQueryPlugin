@@ -73,4 +73,71 @@
 		validated ? submit.attr('disabled',false) : submit.attr('disabled',true);
 	};
 
+	
+	$.fn.validatePassword = function(options) 
+	{
+		$(this).change(function ()
+		{
+			$("#conPassword").val("");
+			$(this).next("span").remove()
+			$(this).after("<span class='passwordStrength' id='passwordStrength'>Password strength: </span>");
+			var strength=checkPassStrength($("#password").val());
+				$("#passwordStrength").append(writeEmailStrenght(strength));
+			
+
+			checkInputs(this);
+		});
+		
+		return this;
+	};
+
+	$.fn.validateConPassword = function(options) 
+	{
+		$(this).change(function ()
+		{
+			$(this).toggleClass("invalid", $("#password").val()!=$("#conPassword").val());
+			$("#password").val()==$("#conPassword").val() ? $(this).next("h3").remove() : $(this).after("<h3 class='error' id='post'>Error: Wrong confirm password!!</h3>");
+			checkInputs(this);
+		});
+		
+		return this;
+	};
+	
+	var checkPassStrength = function(temp)
+	{
+		console.log(temp);
+		var strength = 0;
+		var passwordString;
+		if(temp.length > 3) strength++;
+		if(temp.length > 5) strength++;
+		if(temp.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/)) strength ++;
+		if(temp.match(/([a-zA-Z])/) && temp.match(/([0-9])/))  strength ++;
+		if(temp.length %2 == 1) strength ++;
+		console.log(strength);
+
+return strength;
+	}
+	
+	var writeEmailStrenght =function(strength){ 		
+	if (strength < 1){
+	passwordString = "Very week password";
+	console.log(passwordString);
+	return passwordString = "Very week password";
+} 
+	if (strength >=1 && strength < 3){
+		passwordString = "Medium password";
+	console.log(passwordString);
+	return passwordString = "Medium password";
+}
+	if (strength >=3 && strength < 5){
+		passwordString = "Strong password";
+		console.log(passwordString);
+		return passwordString = "Strong password";
+}
+	else {
+		passwordString = "Very Strong password";
+		console.log(passwordString);
+	return passwordString = "Very Strong password";
+}	
+	}
 })(jQuery);

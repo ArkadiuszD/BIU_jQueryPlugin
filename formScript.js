@@ -8,4 +8,8 @@ $(document).ready(function (){
 	
 	$("#email").validateEmail();
 	
+	$("#password").validatePassword();
+	
+	$("#conPassword").validateConPassword();
+	
 });
