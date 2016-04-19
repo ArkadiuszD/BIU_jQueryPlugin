@@ -1,6 +1,6 @@
 (function($) {
 	
-$.fn.validateText = function(options) 
+	$.fn.validateNames = function(options) 
 	{
 		var settings = $.extend({
 			pattern: "^[A-Z]'?[-a-zA-Z]+$"
@@ -12,6 +12,24 @@ $.fn.validateText = function(options)
 		{
 			$(this).toggleClass("invalid", !pattern.test(this.value));
 			pattern.test(this.value) ? $(this).next("h3").remove() : $(this).after("<h3 class='error' id='post'>Error: Correct the mistake!!</h3>");
+			checkInputs(this);
+		});
+		
+		return this;
+	};
+	
+	$.fn.validateNick = function(options) 
+	{
+		var settings = $.extend({
+			pattern: "^[\+\-]{0,2}[A-Za-z]{3,8}[0-9]{0,2}[\+\-]{0,2}$"
+		}, options);
+
+		var pattern = new RegExp(settings.pattern);
+
+		$(this).change(function ()
+		{
+			$(this).toggleClass("invalid", !pattern.test(this.value));
+			pattern.test(this.value) ? $(this).next("h3").remove() : $(this).after("<h3 class='error' id='post'>Patern for nick [a-z][A-Z]{8}[0-9]{2}</h3>");
 			checkInputs(this);
 		});
 		
@@ -34,6 +52,25 @@ $.fn.validateText = function(options)
 		});
 		
 		return this;
+	};
+	
+		var checkInputs = function(obj)
+	{		
+		var form = $(obj).parents('form');
+		var submit = form.find('input[type="submit"]');
+		var inputs = form.find('input[type!="submit"]');
+		
+		var validated = false;
+		$(inputs).each(function()
+		{
+			if($(this).hasClass('invalid') || !$(this).val()){
+				validated = false;
+				return false;
+			}
+			validated = true;
+		});
+
+		validated ? submit.attr('disabled',false) : submit.attr('disabled',true);
 	};
 
 })(jQuery);

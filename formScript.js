@@ -1,8 +1,10 @@
 $(document).ready(function (){
 
-	$("#first").validateText();
+	$("#first").validateNames();
 	
-	$("#last").validateText();
+	$("#last").validateNames();
+	
+	$("#nick").validateNick();
 	
 	$("#email").validateEmail();
 	
