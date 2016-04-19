@@ -81,7 +81,7 @@
 			$("#conPassword").val("");
 			$(this).next("span").remove()
 			$(this).after("<span class='passwordStrength' id='passwordStrength'>Password strength: </span>");
-			var strength=checkPassStrength($("#password").val());
+			var strength=CountPassStrengthReg($("#password").val());
 				$("#passwordStrength").append(writeEmailStrenght(strength));
 			
 
@@ -103,7 +103,7 @@
 		return this;
 	};
 	
-	var checkPassStrength = function(temp)
+	var CountPassStrengthReg = function(temp)
 	{
 		console.log(temp);
 		var strength = 0;
@@ -112,31 +112,31 @@
 		if(temp.length > 5) strength++;
 		if(temp.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/)) strength ++;
 		if(temp.match(/([a-zA-Z])/) && temp.match(/([0-9])/))  strength ++;
-		if(temp.length %2 == 1) strength ++;
+		//if(temp.length %2 == 1) strength ++;
 		console.log(strength);
 
 return strength;
 	}
 	
 	var writeEmailStrenght =function(strength){ 		
-	if (strength < 1){
+	if (strength < 2){
 	passwordString = "Very week password";
-	console.log(passwordString);
+	//console.log(passwordString);
 	return passwordString = "Very week password";
 } 
-	if (strength >=1 && strength < 3){
+	if (strength >=2 && strength < 3){
 		passwordString = "Medium password";
-	console.log(passwordString);
+	//console.log(passwordString);
 	return passwordString = "Medium password";
 }
 	if (strength >=3 && strength < 5){
 		passwordString = "Strong password";
-		console.log(passwordString);
+		//console.log(passwordString);
 		return passwordString = "Strong password";
 }
 	else {
 		passwordString = "Very Strong password";
-		console.log(passwordString);
+		//console.log(passwordString);
 	return passwordString = "Very Strong password";
 }	
 	}
